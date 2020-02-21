@@ -9,7 +9,7 @@
     "build-esm": "tsc --project ./tsconfig.esm.json",
     "build-esnext": "tsc --project ./tsconfig.esnext.json",
     "build-fix-cjs-module": "perl -pi -e 's|exports.default|module.exports|g' ./lib/cjs/index.js",
-    "build": "yarn run build-cjs && yarn run build-esm && yarn run build-esnext && yarn run build-fix-cjs-module",
+    "build": "rm -rf lib && yarn run build-cjs && yarn run build-esm && yarn run build-esnext && yarn run build-fix-cjs-module",
     "test": "cross-env NODE_ENV=development ts-node ./test/test.ts"
   },
   "keywords": [
