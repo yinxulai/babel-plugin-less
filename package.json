@@ -1,0 +1,46 @@
+{
+  "version": "0.0.1",
+  "name": "@yinxulai/babel-plugin-less",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "jsnext:main": "lib/esnext/index.js",
+  "scripts": {
+    "build-cjs": "tsc --project ./tsconfig.json",
+    "build-esm": "tsc --project ./tsconfig.esm.json",
+    "build-esnext": "tsc --project ./tsconfig.esnext.json",
+    "build-fix-cjs-module": "perl -pi -e 's|exports.default|module.exports|g' ./lib/cjs/index.js",
+    "build": "yarn run build-cjs && yarn run build-esm && yarn run build-esnext && yarn run build-fix-cjs-module",
+    "test": "cross-env NODE_ENV=development ts-node ./test/test.ts"
+  },
+  "keywords": [
+    "less",
+    "babel",
+    "cssModule"
+  ],
+  "files": [
+    "lib"
+  ],
+  "homepage": "https://github.com/yinxulai/babel-plugin-less",
+  "author": "yinxulai@hotmail.com",
+  "description": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/template": "^7.8.3",
+    "autoprefixer": "^9.7.4",
+    "less": "^3.11.1",
+    "postcss": "^7.0.26",
+    "postcss-modules": "^1.5.0"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.8.3",
+    "@babel/types": "^7.8.3",
+    "@types/babel__core": "^7.1.4",
+    "@types/css": "^0.0.31",
+    "@types/less": "^3.0.1",
+    "@types/node": "^13.7.0",
+    "cross-env": "^7.0.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.2"
+  }
+}
