@@ -97,6 +97,11 @@ interface CssModuleOptions {
  本插件使用 `less` 包来对 `less` 文件进行预处理，同时完整支持 `less` 的相关配置
  详细信息查看 [less 文档](https://github.com/less/less-docs/blob/master/content/usage/less-options.md)
 
+### TODO List
+
+  * [ ] 完善文档
+  * [ ] 添加更多示例
+
 ## License
 
 MIT
