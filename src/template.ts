@@ -3,9 +3,10 @@ import template from '@babel/template'
 
 // 挂载 style 的模版
 export function insertStyleElement(elementID: string, css: string): t.Node {
-  // 防止内容包含特殊字符干扰
-  const encodeCss = Buffer.from(css).toString('base64')
-  const encodeElementID = Buffer.from(elementID).toString('base64')
+  // TODO: 防止内容包含特殊字符干扰
+  // 浏览器如何还原 base64 是个问题，还得支持 ssr
+  // const encodeCss = Buffer.from(css).toString('base64')
+  // const encodeElementID = Buffer.from(elementID).toString('base64')
 
   return template.statement(`
     (function(elementID, css) {
@@ -23,7 +24,7 @@ export function insertStyleElement(elementID: string, css: string): t.Node {
 
       // 插入 dom
       document.head.appendChild(style);
-    })(atob("${encodeElementID}"), atob("${encodeCss}"));
+    })(\`${elementID}\`, \`${css}\`);
   `)()
 }
 

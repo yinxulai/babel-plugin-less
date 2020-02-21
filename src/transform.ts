@@ -1,6 +1,7 @@
 import path from 'path'
 import less from 'less'
 import postcss from 'postcss'
+import cssnano from 'cssnano'
 import { readFileSync } from 'fs'
 import autoprefixer from 'autoprefixer'
 import postcssModules from 'postcss-modules'
@@ -29,6 +30,8 @@ async function transformStyleByPostCss(source: string, options: PostCssOptions):
   if (!source) {
     return result
   }
+
+  plugins.push(cssnano())
 
   // 开启补充浏览器前缀
   if (autoPrefix) {
@@ -62,5 +65,5 @@ async function transform() {
 }
 
 transform()
-  .then(result => console.log(JSON.stringify(result)))
   .catch(error => console.error(JSON.stringify(error)))
+  .then(result => console.log(JSON.stringify(result)))

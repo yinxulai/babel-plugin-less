@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "name": "@yinxulai/babel-plugin-less",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
@@ -28,6 +28,7 @@
     "@babel/core": "^7.8.4",
     "@babel/template": "^7.8.3",
     "autoprefixer": "^9.7.4",
+    "cssnano": "^4.1.10",
     "less": "^3.11.1",
     "postcss": "^7.0.26",
     "postcss-modules": "^1.5.0"
