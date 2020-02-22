@@ -51,7 +51,7 @@ import style from './style.less'
   style.id = elementID;
   style.innerHTML = css;
   document.head.appendChild(style);
-})(atob("elementID:BASE64"), atob("CSS:BASE64"));
+})("elementID", "CSS");
 
 // render 到 html 上时:
 // .example {
