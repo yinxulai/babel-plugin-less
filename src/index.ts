@@ -53,10 +53,6 @@ function transformStyle(options: TransformStyleOptions): TransformStyleResult {
 function generateImportStyleAST(data: TransformStyleResult, node: t.ImportDeclaration): t.Node[] {
   const nodeArray: babel.Node[] = []
 
-  if (!data.css && !data.tokens) {
-    return nodeArray
-  }
-
   if (data.css) {
     const elementID = hash(data.css)
     nodeArray.push(insertStyleElement(elementID, data.css))

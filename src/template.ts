@@ -28,8 +28,8 @@ export function insertStyleElement(elementID: string, css: string): t.Node {
   `)()
 }
 
-export function styleTokenMap(variableName: string, map: Object): babel.Node {
+export function styleTokenMap(variableName: string, tokens: Object): babel.Node {
   return template.statement(`
-    const ${variableName} = ${JSON.stringify(map)};
+    const ${variableName} = ${JSON.stringify(tokens)};
   `)();
 }

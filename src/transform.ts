@@ -27,10 +27,6 @@ async function transformStyleByPostCss(source: string, options: PostCssOptions):
   const plugins: postcss.AcceptedPlugin[] = []
   const { cssModule, autoPrefix, ...postcssOptions } = options
 
-  if (!source) {
-    return result
-  }
-
   plugins.push(cssnano())
 
   // 开启补充浏览器前缀
@@ -40,17 +36,22 @@ async function transformStyleByPostCss(source: string, options: PostCssOptions):
 
   // 开启 css Module
   if (cssModule) {
+    // 如果开启了 cssModule
+    // 保证一定有 tokens 对象
+    // 因为使用者会调用 style.className
+
+    result.tokens = {}
     const options = {
       // TODO: 考虑设置一份默认配置、merge 用户配置
       ...(typeof cssModule === 'object' ? cssModule : {}),
-      getJSON: (_, token) => result.tokens = token,
+      getJSON: (_, token) => result.tokens = token || {},
     }
 
     plugins.push(postcssModules(options))
   }
 
   const postcssResult = await postcss(plugins)
-    .process(source, postcssOptions)
+    .process(source || '', postcssOptions)
 
   result.css = postcssResult.css
   return result
