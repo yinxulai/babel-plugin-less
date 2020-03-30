@@ -50,6 +50,16 @@ function transformStyle(options: TransformStyleOptions): TransformStyleResult {
   return JSON.parse(result.toString())
 }
 
+function getImportDefaultSpecifier(node: t.ImportDeclaration): t.ImportDefaultSpecifier | null {
+  const defaultImport = node.specifiers.find(s => t.isImportDefaultSpecifier(s))
+
+  if (t.isImportDefaultSpecifier(defaultImport)) {
+    return defaultImport
+  }
+
+  return null
+}
+
 function generateImportStyleAST(data: TransformStyleResult, node: t.ImportDeclaration): t.Node[] {
   const nodeArray: babel.Node[] = []
 
@@ -59,10 +69,13 @@ function generateImportStyleAST(data: TransformStyleResult, node: t.ImportDeclar
   }
 
   if (data.tokens) {
-    const specifiers = node.specifiers
-    const defaultImport = specifiers.find(s => t.isImportDefaultSpecifier(s))
+    // 获取默认导入的信息
+    // import * from '*'
+    const defaultImport = getImportDefaultSpecifier(node)
 
-    if (!defaultImport || !t.isImportDefaultSpecifier(defaultImport)) { // 用户没有默认导入
+     // 用户没有默认导入
+     // TODO: 支持其他类型的导入
+    if (!defaultImport) {
       return nodeArray
     }
 
@@ -96,8 +109,14 @@ function plugin(): PluginObj {
             return
           }
 
-          // 转换 css
-          const result = transformStyle({ ...pluginOptions, fileName: styleFileName })
+          // import '*'
+          // 关闭 css module
+          if (!data.node.specifiers.length) {
+            pluginOptions.cssModule = false
+          }
+
+            // 转换 css
+            const result = transformStyle({ ...pluginOptions, fileName: styleFileName })
           //  生成 AST
           const newImportAST = generateImportStyleAST(result, data.node)
           // 替换当前节点

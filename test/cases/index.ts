@@ -1,6 +1,10 @@
 // import foo from './foo';
-import style from './style.less'
+import styleLess from './style.less'
+import styleCss from './style.css'
+import './style.css'
 
 export default function () {
-  console.log(style);
+  console.log(styleLess);
+  console.log(styleCss);
+
 }

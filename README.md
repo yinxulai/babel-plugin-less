@@ -4,7 +4,7 @@
 
 ## Installation
 
-```
+```shell
 npm install --save-dev @yinxulai/babel-plugin-less
 ```
 
@@ -27,6 +27,7 @@ npm install --save-dev @yinxulai/babel-plugin-less
 ```
 
 ### Example
+
 ```less
 // style.less
 .example {
@@ -34,11 +35,14 @@ npm install --save-dev @yinxulai/babel-plugin-less
     user-select: none;
 }
 ```
+
 ```js
 // index.jsx
 import style from './style.less'
 ```
+
 ***最终输出***
+
 ```js
 // outfile.js
 (function (elementID, css) {
@@ -79,6 +83,7 @@ var style = {
 #### `cssModule` object | bool
 
  本插件使用 `postcss-modules` 插件来处理 `cssModule`
+  如果 style 你的引用方式如 ```import './style.less'```情况，cssModule 会忽略此文件：
  同时完整支持 `postcss-modules` 插件配置，具体请查看
  [postcss-modules 文档](https://github.com/css-modules/postcss-modules)
 
@@ -94,13 +99,14 @@ interface CssModuleOptions {
 ```
 
 #### `lessOptions` object
+
  本插件使用 `less` 包来对 `less` 文件进行预处理，同时完整支持 `less` 的相关配置
  详细信息查看 [less 文档](https://github.com/less/less-docs/blob/master/content/usage/less-options.md)
 
 ### TODO List
 
-  * [ ] 完善文档
-  * [ ] 添加更多示例
+* [ ] 完善文档
+* [ ] 添加更多示例
 
 ## License
 
